@@ -15,6 +15,21 @@ import sys
 colorama.init(autoreset=True, convert=True)
 
 
+def check_valid_name(name):
+    if name.isalpha():
+        return True
+    else:
+        print("Invalid input. Please use letters only.")
+        return False
+
+def check_valid_contact_number(contact_number):
+    contact_number =  contact_number.replace(" ", "")
+    if contact_number.isdigit() and len(contact_number) == 11:
+        return True
+    else:
+        print("Invalid format. Please enter an 11-digit mobile number (e.g., 09123456789).")
+        return False
+    
 def input_or_cancel(input_prompt, cancel_message):
     value = input(input_prompt).strip()
 
@@ -94,25 +109,42 @@ def view_contacts():
 
 def add_contact():
     print("Press (q) at any time to cancel operation.")
-
-    first_name = input_or_cancel("First Name: ", "Add contact cancelled.")
-    if first_name is None:
-        return
-
-    last_name = input_or_cancel("Last Name: ", "Add contact cancelled.")
-    if last_name is None:
-        return
-
-    address = input_or_cancel("Address: ", "Add contact cancelled.")
-    if address is None:
-        return
-
-    contact_number = input_or_cancel("Contact Number: ", "Add contact cancelled.")
-    if contact_number is None:
-        return
     
+    while True:
+        first_name = input_or_cancel("First Name: ", "Add contact cancelled.")
+        if first_name is None:
+            return
+        if not check_valid_name(first_name) or not first_name:
+            continue
+        break
+    
+    while True:
+        last_name = input_or_cancel("Last Name: ", "Add contact cancelled.")
+        if last_name is None:
+            return
+        if not check_valid_name(last_name) or not last_name:
+            continue
+        break
+        
+    while True:
+        address = input_or_cancel("Address: ", "Add contact cancelled.")
+        if address is None:
+            return
+        if not address:
+            continue
+        break
+    
+    while True:
+        contact_number = input_or_cancel("Contact Number: ", "Add contact cancelled.")
+        if contact_number is None:
+            return
+        if not check_valid_contact_number(contact_number) or not contact_number:
+            continue
+        break
+
     first_name = first_name.title()
     last_name = last_name.title()
+    contact_number =  contact_number.replace(" ", "")
 
     contact = create_contact(first_name, last_name, address, contact_number)
     
@@ -129,7 +161,7 @@ def edit_contact():
     
     view_contacts()
 
-    print("\nEnter (q) at any time to cancel operation.")
+    print("\nEnter (q) at any time to cancel the operation.")
 
     while True:
         try:
@@ -139,7 +171,6 @@ def edit_contact():
             
             index = int(index)
 
-            # Check if the index is valid
             if index < 1 or index > len(address_book):
                 print("Invalid entry number.")
                 continue
@@ -152,38 +183,53 @@ def edit_contact():
     
     old_contact = address_book[index-1]
 
-    print("\nInput blank space to keep information as is.\n")
+    print("\nInput blank space to keep the information as is.\n")
     
-    first_name = input_or_cancel(f"First Name ({old_contact["first_name"]}): ", "Edit contact cancelled.")
-    if first_name is None:
-        return
-    
-    if first_name == "":
-        first_name = old_contact["first_name"]
-    
-    last_name = input_or_cancel(f"Last Name ({old_contact["last_name"]}): ", "Edit contact cancelled.")
-    if last_name is None:
-        return
-    
-    if last_name == "":
-        last_name = old_contact["last_name"]
+    while True:
+        first_name = input_or_cancel(f"First Name ({old_contact["first_name"]}): ", "Edit contact cancelled.")
+        if first_name is None:
+            return
+        if first_name == "":
+            first_name = old_contact["first_name"]
+            break
+        if not check_valid_name(first_name):
+            continue
+        
+        break
 
-    address = input_or_cancel(f"Address ({old_contact["address"]}): ", "Edit contact cancelled.")
-    if address is None:
-        return
-    
-    if address == "":
-        address = old_contact["address"]
+    while True:
+        last_name = input_or_cancel(f"Last Name ({old_contact["last_name"]}): ", "Edit contact cancelled.")
+        if last_name is None:
+            return
+        if last_name == "":
+            last_name = old_contact["last_name"]
+            break
+        if not check_valid_name(last_name):
+            continue
+        break
 
-    contact_number = input_or_cancel(f"Contact Number ({old_contact["contact_number"]}): ", "Edit contact cancelled.")
-    if contact_number is None:
-        return
+    while True:
+        address = input_or_cancel(f"Address ({old_contact["address"]}): ", "Edit contact cancelled.")
+        if address is None:
+            return
+        if address == "":
+            address = old_contact["address"]
+        break
     
-    if contact_number == "":
-        contact_number = old_contact["contact_number"]
+    while True:
+        contact_number = input_or_cancel(f"Contact Number ({old_contact["contact_number"]}): ", "Edit contact cancelled.")
+        if contact_number is None:
+            return
+        if contact_number == "":
+            contact_number = old_contact["contact_number"]
+            break
+        if not check_valid_contact_number(contact_number):
+            continue
+        break  
 
     first_name = first_name.title()
     last_name = last_name.title()
+    contact_number = contact_number.replace(" ", "")
 
     new_contact = create_contact(first_name, last_name, address, contact_number)
 
@@ -250,23 +296,41 @@ def search(search_term, category):
 
     for i, contact in enumerate(address_book):
 
-        if search_term.lower() in contact[category].lower(): 
-            first_name = contact["first_name"]
-            last_name = contact["last_name"]
-            address = contact["address"]
-            contact_number = contact["contact_number"]
+        if category == "contact_number":
+            if search_term in contact[category]:
+                first_name = contact["first_name"]
+                last_name = contact["last_name"]
+                address = contact["address"]
+                contact_number = contact["contact_number"]
 
-            table.add_row(
-                [
-                Fore.CYAN + str(i + 1) + Style.RESET_ALL,
-                Fore.LIGHTBLUE_EX + first_name + Style.RESET_ALL,
-                Fore.LIGHTGREEN_EX + last_name + Style.RESET_ALL,
-                Fore.YELLOW + address + Style.RESET_ALL,
-                Fore.LIGHTRED_EX + contact_number + Style.RESET_ALL
-                ]
-            )
+                table.add_row(
+                    [
+                    Fore.CYAN + str(i + 1) + Style.RESET_ALL,
+                    Fore.LIGHTBLUE_EX + first_name + Style.RESET_ALL,
+                    Fore.LIGHTGREEN_EX + last_name + Style.RESET_ALL,
+                    Fore.YELLOW + address + Style.RESET_ALL,
+                    Fore.LIGHTRED_EX + contact_number + Style.RESET_ALL
+                    ]
+                )
 
-            found = True 
+                found = True 
+
+        else:
+            if search_term.lower() in contact[category].lower():
+                first_name = contact["first_name"]
+                last_name = contact["last_name"]
+                address = contact["address"]
+                contact_number = contact["contact_number"]
+
+                table.add_row(
+                    [
+                    Fore.CYAN + str(i + 1) + Style.RESET_ALL,
+                    Fore.LIGHTBLUE_EX + first_name + Style.RESET_ALL,
+                    Fore.LIGHTGREEN_EX + last_name + Style.RESET_ALL,
+                    Fore.YELLOW + address + Style.RESET_ALL,
+                    Fore.LIGHTRED_EX + contact_number + Style.RESET_ALL
+                    ]
+                )
 
     if found:
         print(table)
@@ -292,51 +356,56 @@ f"""
 
 """
 )
-        try:
-            answer = input_or_cancel("Answer: ", "Search cancelled.")
-            if answer is None:
-                return
-            
-            answer = answer.lower()
-
-            if answer != "a" and answer != "b" and answer != "c" and answer != "d":
-                print("Invalid answer. Only letters a, b, c, and d.")
-                continue
         
-        except ValueError:
-            print("Invalid input. Please enter a letter.")
+        answer = input_or_cancel("Answer: ", "Search cancelled.")
+        if answer is None:
+            return
+        if answer not in ("a", "b", "c", "d") or not answer:
+            print("Invalid answer. Only letters a, b, c, and d are accepted.")
             continue
-
         break
 
     if answer == "a":
-        search_term = input_or_cancel("Enter the first name: ", "Search cancelled.")
-        if search_term is None:
-            return
-        
-        search(search_term, "first_name")
+        while True:
+            search_term = input_or_cancel("Enter the first name: ", "Search cancelled.")
+            if search_term is None:
+                return
+            if not check_valid_name(search_term) or not search_term:
+                continue
+            search(search_term, "first_name")
+            break
 
     elif answer == "b":
-        search_term = input_or_cancel("Enter the last name: ", "Search cancelled.")
-        if search_term is None:
-            return
-        
-        search(search_term, "last_name")
-        
-    elif answer == "c":
-        search_term = input_or_cancel("Enter the address to search: ", "Search cancelled.")
-        if search_term is None:
-            return
+        while True:
+            search_term = input_or_cancel("Enter the last name: ", "Search cancelled.")
+            if search_term is None:
+                return
+            if not check_valid_name(search_term) or not search_term:
+                continue
+            search(search_term, "last_name")
+            break
 
-        search(search_term, "address")
+    elif answer == "c":
+        while True:
+            search_term = input_or_cancel("Enter the address to search: ", "Search cancelled.")
+            if search_term is None:
+                return
+            if not search_term:
+                continue
+            search(search_term, "address")
+            break
         
     elif answer == "d":
-        search_term = input_or_cancel("Enter the contact number to search: ", "Search cancelled.")
-        if search_term is None:
-            return
-        
-        search(search_term, "contact_number")
- 
+        while True:
+            search_term = input_or_cancel("Enter the contact number to search: ", "Search cancelled.")
+            if search_term is None:
+                return
+            if not search_term or not search_term.isdigit():
+                print("Invalid input. Please use numbers only.")
+                continue
+            search(search_term, "contact_number")
+            break
+
 def exit_program():
     sys.exit()
 

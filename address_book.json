@@ -3,12 +3,24 @@
         "first_name": "Clark",
         "last_name": "Romasame",
         "address": "Cupang city",
-        "contact_number": "0992 90334 9394"
+        "contact_number": "09929029032"
     },
     {
         "first_name": "James",
         "last_name": "Alarcxon",
         "address": "Long Beach city",
         "contact_number": "0992939040"
+    },
+    {
+        "first_name": "Prince",
+        "last_name": "Menard",
+        "address": "Muntinlupa CIty",
+        "contact_number": "09923999399"
+    },
+    {
+        "first_name": "Renz",
+        "last_name": "Velasco",
+        "address": "Blk 43 Lot 90",
+        "contact_number": "09929069062"
     }
 ]
