@@ -1,26 +1,14 @@
-{
-    "first names": [
-        "Clark",
-        "James",
-        "Clarjk",
-        "Clark"
-    ],
-    "last names": [
-        "Alarcon",
-        "Romasame",
-        "Alarcon",
-        "Alarcon"
-    ],
-    "addresses": [
-        "blk43 lot 21",
-        "Cuapng",
-        "Blk43",
-        "Blk 43 Lot 21"
-    ],
-    "contacts": [
-        "0992 906 9061",
-        "039559",
-        "0992 906 9061",
-        "09929069061"
-    ]
-}
+[
+    {
+        "first_name": "Clark",
+        "last_name": "Romasame",
+        "address": "Cupang city",
+        "contact_number": "0992 90334 9394"
+    },
+    {
+        "first_name": "James",
+        "last_name": "Alarcxon",
+        "address": "Long Beach city",
+        "contact_number": "0992939040"
+    }
+]
