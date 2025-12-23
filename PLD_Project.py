@@ -23,14 +23,6 @@ def welcome_message():
         time.sleep(0.011)
     print() 
 
-def get_valid_phone():
-    while True:
-        phone = input("Contact Number: ").strip()
-        if phone.isdigit() and len(phone) == 11:
-            return phone
-        else:
-            print("Invalid format. Please enter an 11-digit mobile number (e.g., 09123456789).")
-
 def input_or_cancel(input_text, cancel_text):
     value = input(input_text).strip()
 
@@ -76,16 +68,6 @@ def save_address_book():
     with open("address_book.json", "w") as file:
         json.dump(data, file, indent=4)
 
-def check_valid_phone(contact_number):
-    while True:
-
-        contact_number = contact_number.replace(" ", "")
-
-        if contact_number.isdigit() and len(contact_number) == 11:
-            return contact_number
-        else:
-            contact_number = input("Invalid format. Please enter an 11-digit mobile number (e.g., 0912 345 6789):\n")
-
 # Function to add a new contact to the lists
 def add_contact():
     print("Press (q) at any time to cancel operation.\n")
@@ -106,8 +88,6 @@ def add_contact():
     contact_number = input_or_cancel("Contact Number: ", "Add contact cancelled.")
     if contact_number is None:
         return
-    
-    contact_number = check_valid_phone(contact_number)
     
     # Add each piece of information to its respective list
     first_name_list.append(first_name)
