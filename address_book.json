@@ -1,8 +1,72 @@
 [
     {
-        "first_name": "Clark",
-        "last_name": "Jao",
-        "address": "blk43",
-        "contact_number": "09929079044"
+        "contact_id": 10,
+        "first_name": "Julia",
+        "last_name": "Torres",
+        "address": "741 Poplar Street",
+        "contact_number": "09011234567"
+    },
+    {
+        "contact_id": 9,
+        "first_name": "Ian",
+        "last_name": "Reyes",
+        "address": "369 Aspen Court",
+        "contact_number": "09901234567"
+    },
+    {
+        "contact_id": 8,
+        "first_name": "Hannah",
+        "last_name": "Lopez",
+        "address": "258 Willow Way",
+        "contact_number": "09891234567"
+    },
+    {
+        "contact_id": 7,
+        "first_name": "George",
+        "last_name": "Nguyen",
+        "address": "147 Spruce Drive",
+        "contact_number": "09781234567"
+    },
+    {
+        "contact_id": 6,
+        "first_name": "Fiona",
+        "last_name": "Martinez",
+        "address": "987 Birch Boulevard",
+        "contact_number": "09671234567"
+    },
+    {
+        "contact_id": 5,
+        "first_name": "Ethan",
+        "last_name": "Garcia",
+        "address": "654 Cedar Lane",
+        "contact_number": "09561234567"
+    },
+    {
+        "contact_id": 4,
+        "first_name": "Diana",
+        "last_name": "Lee",
+        "address": "321 Elm Street",
+        "contact_number": "09451234567"
+    },
+    {
+        "contact_id": 3,
+        "first_name": "Charlie",
+        "last_name": "Dela Cruz",
+        "address": "789 Pine Road",
+        "contact_number": "09391234567"
+    },
+    {
+        "contact_id": 2,
+        "first_name": "Bob",
+        "last_name": "Smith",
+        "address": "456 Oak Avenue",
+        "contact_number": "09281234567"
+    },
+    {
+        "contact_id": 1,
+        "first_name": "Alice",
+        "last_name": "Johnson",
+        "address": "123 Maple Street",
+        "contact_number": "09171234567"
     }
 ]
